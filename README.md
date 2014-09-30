@@ -30,7 +30,7 @@ Incorporate the `download.sh` script in your `Vagrantfile`. It may need tweaking
 
 ## bonus
 
-If you want a handy alias to easily enter and exit Docker containers, add the following to your `/home/vagrant/.bashrc` in your guest VM 
+If you want a handy shortcut to enter Docker containers using `nsenter`, add the following to your `/home/vagrant/.bashrc` in your guest VM:
 
     dockerenterfunc() {
         PID=$(docker inspect --format '{{ .State.Pid }}' $1)
@@ -38,11 +38,11 @@ If you want a handy alias to easily enter and exit Docker containers, add the fo
     }
     alias dockerenter=dockerenterfunc
     
-Make sure you update your `~/.bashrc` in the guest VM.
+Make sure you update your `~/.bashrc` in the guest VM before using the shortcut.
 
     vagrant@guest:~$ source ~/.bashrc
 
-Then pass the name of your container to the function. For example, assuming my Docker container `redis` is already running:
+Then pass the name of your container to the shortcut. For example, assuming you have a Docker container called `redis` which is already running:
 
     vagrant@guest:~$ dockerenter redis
     
