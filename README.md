@@ -1,6 +1,17 @@
 # nsenter for docker
 
-There is an open [bug][1] for Debian/Ubuntu from Ubuntu 12.10 (Quantal Quetzal) to Ubuntu 14.04 (Trusty Tahr) relating to an old version of [util-linux][2] which doesn't include nsenter:
+There is an open [bug](https://bugs.launchpad.net/ubuntu/+source/util-linux/+bug/1012081) for Debian/Ubuntu from Ubuntu 12.10 (Quantal Quetzal) to Ubuntu 14.04 (Trusty Tahr) relating to an old version of [util-linux](https://www.kernel.org/pub/linux/utils/util-linux/) which doesn't include nsenter.
+
+The latest compiled version is nsenter from util-linux 2.25.226-42f0. [Download](https://github.com/Dreyer/nsenter/releases/latest).
+
+## requirements
+
+I've got this working well on my current setup which is below (YMMV):
+
+- Mac OS X 10.9.5
+- [Vagrant](http://www.vagrantup.com/) 1.6.5
+- [Docker](https://docker.com/) 1.2.0
+- [VirtualBox](https://www.virtualbox.org/) 4.3.16
 
 ## compile
 
@@ -30,7 +41,7 @@ Incorporate the `download.sh` script in your `Vagrantfile`. It may need tweaking
 
 ## bonus
 
-If you want a handy shortcut to enter Docker containers using `nsenter`, add the following to your `/home/vagrant/.bashrc` in your guest VM:
+If you want a shortcut to enter Docker containers using `nsenter`, add the following to your `/home/vagrant/.bashrc` in your guest VM:
 
     dockerenterfunc() {
         PID=$(docker inspect --format '{{ .State.Pid }}' $1)
@@ -45,8 +56,4 @@ Make sure you update your `~/.bashrc` in the guest VM before using the shortcut.
 Then pass the name of your container to the shortcut. For example, assuming you have a Docker container called `redis` which is already running:
 
     vagrant@guest:~$ dockerenter redis
-    
 
-
-  [1]: https://bugs.launchpad.net/ubuntu/+source/util-linux/+bug/1012081
-  [2]: https://www.kernel.org/pub/linux/utils/util-linux/
